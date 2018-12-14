@@ -1,7 +1,7 @@
-# ![xtensor-r](docs/source/xtensor-r.svg)
+# ![Xtensor.R](./xtensor-r.svg)
 
-[![Travis](https://travis-ci.org/QuantStack/xtensor-r.svg?branch=master)](https://travis-ci.org/QuantStack/xtensor-r)
-[![Appveyor](https://ci.appveyor.com/api/projects/status/5pe90pdw4wddaxx7?svg=true)](https://ci.appveyor.com/project/QuantStack/xtensor-r)
+[![Travis](https://travis-ci.org/QuantStack/Xtensor.R.svg?branch=master)](https://travis-ci.org/QuantStack/Xtensor.R)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/1w3879ydqihq3jh6?svg=true)](https://ci.appveyor.com/project/QuantStack/Xtensor.R)
 [![Documentation](http://readthedocs.org/projects/xtensor-r/badge/?version=latest)](https://xtensor-r.readthedocs.io/en/latest/?badge=latest)
 [![Join the Gitter Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/QuantStack/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -103,22 +103,11 @@ http://xtensor-r.readthedocs.io/
 
 `xtensor-r` depends on the `xtensor` and `Rcpp` libraries
 
-| `xtensor-r`  | `xtensor` | `Rcpp`   |
-|--------------|-----------|----------|
-| master       |  ^0.19.0  | ^1.0     |
-| 0.9.0        |  ^0.19.0  | ^1.0     |
-| 0.8.2        |  ^0.18.2  | ^0.12.11 |
-| 0.8.1        |  ^0.18.1  | ^0.12.11 |
-| 0.8.0        |  ^0.18.0  | ^0.12.11 |
-| 0.7.0        |  ^0.17.1  | ^0.12.11 |
-| 0.6.1        |  ^0.16.2  | ^0.12.11 |
-| 0.6.0        |  ^0.16.1  | ^0.12.11 |
-| 0.5.0        |  ^0.15.4  | ^0.12.11 |
-| 0.4.0        |  ^0.14.1  | ^0.12.11 |
-| 0.3.0        |  ^0.13.1  | ^0.12.11 |
-| 0.2.0        |  ^0.12.0  | ^0.12.11 |
-| 0.1.1        |  ^0.11.2  | ^0.12.11 |
-
+| `Xtensor.R`  | `xtensor-r` | `xtensor` | `Rcpp`   |
+|--------------|-------------|-----------|----------|
+| master       |  ^0.9.0     |  ^0.19.0  | ^1.0     |
+| 0.9.0        |  ^0.9.0     |  ^0.19.0  | ^1.0     |
+ 
  - Core `xtensor` headers are vendored in the CRAN package.
  - When using the conda, or debian package managers, xtensor-r has a dependency on xtensor.
 

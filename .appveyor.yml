@@ -16,8 +16,6 @@ init:
   - ps: if($env:Platform -eq "x86"){Start-FileDownload 'http://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86.exe' C:\Miniconda.exe; echo "Done"}
   - cmd: C:\Miniconda.exe /S /D=C:\xtensor-conda
   - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%MINICONDA%\\Library\\bin;%PATH%"
-  # To enable RDP
-  #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
   # CXX14 unnecessary with MSVC
@@ -26,10 +24,8 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Testing
-  - conda install r r-rcpp r-base r-devtools -c conda-forge
+  - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
   - conda install m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix
-  - conda install xtensor==0.19.0 -c conda-forge
-  - R -e "install.packages('RInside', repos='http://cran.us.r-project.org')"
   - mkdir build
   - cd build
   # Install miktex
@@ -46,16 +42,10 @@ install:
   - appveyor DownloadFile https://cran.r-project.org/bin/windows/Rtools/Rtools34.exe
   - Rtools34.exe /VERYSILENT -NoNewWindow -Wait
   - cmake -D XTENSOR_INSTALL_R_PACKAGES=OFF -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH=%MINGW_PATH% -D CMAKE_INSTALL_PREFIX=%MINICONDA%\\Library -DDOWNLOAD_GTEST=ON ..
-  - cmake --build . --target test_xtensor_r
-  - cmake --build . --target install
   - cmake --build . --target cran
-  - cd test
 
 build_script:
-  - .\test_xtensor_r
-  - cd ..
   - R CMD check --as-cran .\xtensor_*.tar.gz
-
-# To enable RDP
-#on_finish:
-#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - R CMD INSTALL xtensor_*.tar.gz
+  #- cd ..\test\
+  #- Rscript unittest.R
