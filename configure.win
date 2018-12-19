@@ -1,33 +1,38 @@
 #!/bin/sh
 
-XTL_VERSION=0.5.2
-XSIMD_VERSION=7.1.1
-XTENSOR_VERSION=0.19.0
-XTENSOR_R_VERSION=0.9.0
+# Parse command-line arguments
+for i in "$@"
+do
+case $i in
+    # Option with value
+    # =================
 
-# temporary directory
-mkdir clones
-cd clones
+    #-e=*|--extension=*)
+    #EXTENSION="${i#*=}"
+    #shift # past argument=value
+    #;;
 
-# xtl
-git clone https://github.com/QuantStack/xtl --branch ${XTL_VERSION}
-cp -r xtl/include/xtl ../inst/include
+    # Option without a value
+    # ======================
+    --novendor)
+    NO_VENDOR_XTENSOR=YES
+    shift # pass argument with no value
+    ;;
 
-# xsimd
-git clone https://github.com/QuantStack/xsimd --branch ${XSIMD_VERSION}
-cp -r xsimd/include/xsimd ../inst/include
+    # Unknown option
+    # ==============
+    *)
+          # unknown option
+    ;;
+esac
+done
+echo "NO_VENDOR_XTENSOR  = ${NO_VENDOR_XTENSOR}"
 
-# xtensor
-git clone https://github.com/QuantStack/xtensor --branch ${XTENSOR_VERSION}
-cp -r xtensor/include/xtensor ../inst/include
-
-# xtensor-r
-git clone https://github.com/QuantStack/xtensor-r --branch ${XTENSOR_R_VERSION}
-cp -r xtensor-r/include/xtensor-r ../inst/include
-
-# remove clones
-cd ..
-rm -rf clones
+# Call vendor script to fetch dependencies
+if [ "${NO_VENDOR_XTENSOR}" != "YES" ]
+then
+    ./vendor
+fi
 
 # Run Rcpp compiler Attributes
 ${R_HOME}/bin${R_ARCH_BIN}/R -q -e "library('Rcpp');Rcpp::compileAttributes();"
