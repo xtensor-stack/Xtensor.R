@@ -20,14 +20,12 @@ init:
 install:
   # CXX14 unnecessary with MSVC
   # Also cannot be set because R uses its compile-time settings.
-  - ps: sed -i 's|CXX_STD = CXX14||' R-package/src/Makevars.win
+  - ps: sed -i 's|CXX_STD = CXX14||' src/Makevars.win
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
-  # Testing
+  # Install R and dependencies
   - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
   - conda install m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix
-  - mkdir build
-  - cd build
   # Install miktex
   - if not exist c:\miktex\texmfs\install\miktex\bin\pdflatex.exe appveyor DownloadFile http://miktex.org/download/ctan/systems/win32/miktex/setup/windows-x86/miktex-portable.exe
   - if not exist c:\miktex\texmfs\install\miktex\bin\pdflatex.exe 7z x miktex-portable.exe -oC:\miktex >NUL
@@ -41,8 +39,8 @@ install:
   - "set PATH=%PATH%;%MINGW_PATH%;%MINICONDA%\\Lib\\R\\library\\RInside\\libs\\x64;%MINICONDA%\\Lib\\R\\bin\\x64"
   - appveyor DownloadFile https://cran.r-project.org/bin/windows/Rtools/Rtools34.exe
   - Rtools34.exe /VERYSILENT -NoNewWindow -Wait
-  - cmake -D XTENSOR_INSTALL_R_PACKAGES=OFF -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH=%MINGW_PATH% -D CMAKE_INSTALL_PREFIX=%MINICONDA%\\Library -DDOWNLOAD_GTEST=ON ..
-  - cmake --build . --target cran
+  # Build
+  - R CMD build .
 
 build_script:
   - R CMD check --as-cran .\xtensor_*.tar.gz
