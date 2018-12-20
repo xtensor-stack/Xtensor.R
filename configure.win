@@ -1,31 +1,9 @@
 #!/bin/sh
 
-# Parse command-line arguments
-for i in "$@"
-do
-case $i in
-    # Option with value
-    # =================
-
-    #-e=*|--extension=*)
-    #EXTENSION="${i#*=}"
-    #shift # past argument=value
-    #;;
-
-    # Option without a value
-    # ======================
-    --novendor)
-    NO_VENDOR_XTENSOR=YES
-    shift # pass argument with no value
-    ;;
-
-    # Unknown option
-    # ==============
-    *)
-          # unknown option
-    ;;
-esac
-done
+# The NO_VENDOR_XTENSOR environment variable
+# defines whether the headers for xtl, xsimd,
+# xtensor, and xtensor-r should be vendored
+# with the R package.
 
 # Call vendor script to fetch dependencies
 if [ "${NO_VENDOR_XTENSOR}" = "YES" ]
