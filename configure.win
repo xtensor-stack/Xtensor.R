@@ -26,11 +26,21 @@ case $i in
     ;;
 esac
 done
-echo "NO_VENDOR_XTENSOR  = ${NO_VENDOR_XTENSOR}"
 
 # Call vendor script to fetch dependencies
-if [ "${NO_VENDOR_XTENSOR}" != "YES" ]
+if [ "${NO_VENDOR_XTENSOR}" = "YES" ]
 then
+    echo "Vendoring of xtensor headers is disabled."
+    # Delete vendored xtl xsimd xtensor xtensor-r
+    # if it is included in the built package.
+    rm -rf ./inst/include/xtl
+    rm -rf ./inst/include/xsimd
+    rm -rf ./inst/include/xtensor
+    rm -rf ./inst/include/xtensor-r
+else
+    echo "Vendoring of xtensor headers is enabled."
+    # Fetch xtl xsimd xtensor xtensor-r
+    # if it is not included in the build package.
     ./vendor
 fi
 
