@@ -19,7 +19,7 @@ else
     echo "Vendoring of xtensor headers is enabled."
     # Fetch xtl xsimd xtensor xtensor-r
     # if it is not included in the build package.
-    ./vendor
+    ./tools/vendor
 fi
 
 # Run Rcpp compiler Attributes
