@@ -8,11 +8,21 @@
 # Example code in package build process
 *-Ex.R
 
+# Downloaded include folders
+inst/include/xtensor-r
+inst/include/xtensor
+inst/include/xtl
+inst/include/xsimd
+
 # Output files from R CMD build
 /*.tar.gz
 *.o
 *.so
 *.dll
+
+ # Generated Rcpp artefacts
+ R/RcppExports.R
+ src/RcppExports.cpp
 
 # Output files from R CMD check
 /*.Rcheck/

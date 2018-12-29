@@ -131,5 +131,3 @@ script:
        cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00check.log   &&
        cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/Rdlatex.log
       )
-    - R CMD INSTALL xtensor_*.tar.gz
-    - cd test/; Rscript unittest.R
