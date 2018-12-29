@@ -14,6 +14,10 @@ inst/include/xtensor
 inst/include/xtl
 inst/include/xsimd
 
+# Generated Rcpp artefacts
+R/RcppExports.R
+src/RcppExports.cpp
+
 # Output files from R CMD build
 /*.tar.gz
 *.o
