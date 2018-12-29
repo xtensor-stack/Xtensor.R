@@ -20,6 +20,10 @@ inst/include/xsimd
 *.so
 *.dll
 
+ # Generated Rcpp artefacts
+ R/RcppExports.R
+ src/RcppExports.cpp
+
 # Output files from R CMD check
 /*.Rcheck/
 
