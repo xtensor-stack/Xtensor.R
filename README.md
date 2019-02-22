@@ -105,7 +105,7 @@ http://xtensor-r.readthedocs.io/
 
 | `Xtensor.R`  | `xtensor-r` | `xtensor` | `Rcpp`   |
 |--------------|-------------|-----------|----------|
-| master       |  ^0.9.0     |  ^0.19.0  | ^1.0     |
+| master       |  ^0.10.0    |  ^0.19.4  | ^1.0     |
 | 0.9.0        |  ^0.9.0     |  ^0.19.0  | ^1.0     |
  
  - Core `xtensor` headers are vendored in the CRAN package.

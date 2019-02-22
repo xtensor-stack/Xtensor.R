@@ -22,7 +22,7 @@ install:
   # Also cannot be set because R uses its compile-time settings.
   - ps: sed -i 's|CXX_STD = CXX14||' src/Makevars.win
   - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
+  # - conda update -q conda
   # Install R and dependencies
   - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
   - conda install m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix
