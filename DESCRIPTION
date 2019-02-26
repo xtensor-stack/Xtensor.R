@@ -15,5 +15,6 @@ Encoding: UTF-8
 Imports: Rcpp
 LinkingTo: Rcpp
 LazyData: true
+Biarch: true
 Suggests: 
     testthat
