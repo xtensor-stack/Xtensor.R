@@ -29,6 +29,8 @@ then
     echo "xtensor headers already vendored in source package"
 else
     git clone https://github.com/QuantStack/xtensor --branch ${XTENSOR_VERSION}
+    DIRECTORY=$(cd `dirname $0` && pwd)
+    git -C xtensor apply $DIRECTORY/0001-Remove-pragmas.patch
     cp -r xtensor/include/xtensor ./inst/include
     rm -rf xtensor
 fi
