@@ -1,0 +1,43 @@
+From 679e57f92c455287555ab15b474a392b417642fc Mon Sep 17 00:00:00 2001
+From: Sylvain Corlay <sylvain.corlay@gmail.com>
+Date: Mon, 18 Mar 2019 19:10:04 +0100
+Subject: [PATCH] Remove pragmas
+
+---
+ include/xtensor/xstorage.hpp | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/include/xtensor/xstorage.hpp b/include/xtensor/xstorage.hpp
+index d6662a6..376b774 100644
+--- a/include/xtensor/xstorage.hpp
++++ b/include/xtensor/xstorage.hpp
+@@ -1795,15 +1795,6 @@ namespace xt
+  * std::tuple_size extensions *
+  ******************************/
+ 
+-// The C++ standard defines tuple_size as a class, however
+-// G++ 8 C++ library does define it as a struct hence we get
+-// clang warnings here
+-
+-#if defined(__clang__)
+-    #pragma clang diagnostic push
+-    #pragma clang diagnostic ignored "-Wmismatched-tags"
+-#endif
+-
+ namespace std
+ {
+     template <class T, std::size_t N>
+@@ -1829,10 +1820,6 @@ namespace std
+     class tuple_size<xt::sequence_view<T, Start, -1>>;
+ }
+ 
+-#if defined(__clang__)
+-    #pragma clang diagnostic pop
+-#endif
+-
+ #undef XTENSOR_CONST
+ #undef XTENSOR_ALIGNMENT
+ #undef XTENSOR_SELECT_ALIGN
+-- 
+2.17.1
+
