@@ -115,7 +115,6 @@ install:
     - conda update -q conda
     # Install R and dependencies
     - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
-    - conda update readline -c conda-forge  # Requiring conda-forge version of readline
     # Build
     - R CMD build .
     # Makevars
