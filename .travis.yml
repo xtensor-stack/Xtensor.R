@@ -39,6 +39,14 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env: COMPILER=gcc GCC=7 NOVENDOR=1
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6
@@ -115,6 +123,10 @@ install:
     - conda update -q conda
     # Install R and dependencies
     - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
+    # In the novendor case, install xtensor
+    - if [[ -n "$NOVENDOR" ]]; then
+          conda install xtensor-r -c conda-forge;
+      fi
     # Build
     - R CMD build .
     # Makevars
@@ -125,8 +137,18 @@ install:
 
 script:
     # Run tests
-    - R CMD check --as-cran ./xtensor_*.tar.gz || (
-       cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00install.out &&
-       cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00check.log   &&
-       cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/Rdlatex.log
-      )
+    - if [[ -n "$NOVENDOR" ]]; then
+          echo "Running R CMD check with --novendor argument";
+          R CMD check --install-args="--configure-args='--novendor'" ./xtensor_*.tar.gz || (
+           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00install.out &&
+           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00check.log   &&
+           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/Rdlatex.log
+          );
+      else
+          echo "Running R CMD check with --as-cran argument.";
+          R CMD check --as-cran ./xtensor_*.tar.gz || (
+           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00install.out &&
+           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00check.log   &&
+           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/Rdlatex.log
+          );
+      fi
