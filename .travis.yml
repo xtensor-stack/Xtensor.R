@@ -47,6 +47,14 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env: COMPILER=gcc GCC=7 NOVENDOR=1 USE_DEV_XTENSOR_R=1
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6
@@ -125,7 +133,16 @@ install:
     - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
     # In the novendor case, install xtensor
     - if [[ -n "$NOVENDOR" ]]; then
-          conda install xtensor-r -c conda-forge;
+          if [[ -n "$USE_DEV_XTENSOR_R" ]]; then
+              conda install xtensor cmake -c conda-forge;
+              git clone https://github.com/QuantStack/xtensor-r.git;
+              cd xtensor-r; mkdir build; cd build;
+              cmake -D CMAKE_INSTALL_PREFIX=$HOME/miniconda ..;
+              make install;
+              cd ../..;
+          else
+              conda install xtensor-r -c conda-forge;
+          fi
       fi
     # Build
     - R CMD build .
