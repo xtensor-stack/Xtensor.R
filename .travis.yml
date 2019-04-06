@@ -157,15 +157,15 @@ script:
     - if [[ -n "$NOVENDOR" ]]; then
           echo "Running R CMD check with --novendor argument";
           R CMD check --install-args="--configure-args='--novendor'" ./xtensor_*.tar.gz || (
-           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00install.out &&
-           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00check.log   &&
-           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/Rdlatex.log
+           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00install.out &&
+           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00check.log   &&
+           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/Rdlatex.log
           );
       else
           echo "Running R CMD check with --as-cran argument.";
           R CMD check --as-cran ./xtensor_*.tar.gz || (
-           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00install.out &&
-           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/00check.log   &&
-           cat /home/travis/build/QuantStack/xtensor-r/build/xtensor.Rcheck/Rdlatex.log
+           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00install.out &&
+           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00check.log   &&
+           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/Rdlatex.log
           );
       fi
