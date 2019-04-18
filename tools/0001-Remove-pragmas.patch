@@ -20,8 +20,8 @@ index d6662a6..376b774 100644
 -// clang warnings here
 -
 -#if defined(__clang__)
--    #pragma clang diagnostic push
--    #pragma clang diagnostic ignored "-Wmismatched-tags"
+-    # pragma clang diagnostic push
+-    # pragma clang diagnostic ignored "-Wmismatched-tags"
 -#endif
 -
  namespace std
@@ -32,7 +32,7 @@ index d6662a6..376b774 100644
  }
  
 -#if defined(__clang__)
--    #pragma clang diagnostic pop
+-    # pragma clang diagnostic pop
 -#endif
 -
  #undef XTENSOR_CONST
