@@ -26,12 +26,6 @@ install:
   # Install R and dependencies
   - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
   - conda install m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix
-  # Install miktex
-  - if not exist c:\miktex\texmfs\install\miktex\bin\pdflatex.exe appveyor DownloadFile http://miktex.org/download/ctan/systems/win32/miktex/setup/windows-x86/miktex-portable.exe
-  - if not exist c:\miktex\texmfs\install\miktex\bin\pdflatex.exe 7z x miktex-portable.exe -oC:\miktex >NUL
-  - set "PATH=%PATH%;c:\miktex\texmfs\install\miktex\bin"
-  # Enable installing miktex packages on the fly
-  - initexmf --set-config-value [MPM]AutoInstall=1
   # Full build on x64 with msys64
   - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - set R_HOME=%MINICONDA%\\Lib\\R
@@ -40,10 +34,10 @@ install:
   - appveyor DownloadFile https://cran.r-project.org/bin/windows/Rtools/Rtools34.exe
   - Rtools34.exe /VERYSILENT -NoNewWindow -Wait
   # Build
-  - R CMD build .
+  - R CMD build --no-manual .
 
 build_script:
-  - R CMD check --as-cran .\xtensor_*.tar.gz
+  - R CMD check --as-cran --no-manual .\xtensor_*.tar.gz
   - R CMD INSTALL xtensor_*.tar.gz
   #- cd ..\test\
   #- Rscript unittest.R
