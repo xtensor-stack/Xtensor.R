@@ -134,14 +134,14 @@ install:
     # In the novendor case, install xtensor
     - if [[ -n "$NOVENDOR" ]]; then
           if [[ -n "$USE_DEV_XTENSOR_R" ]]; then
-              conda install xtensor==0.20.4 cmake -c conda-forge;
+              conda install xtensor==0.20.8 xsimd=7.2.3 cmake -c conda-forge;
               git clone https://github.com/QuantStack/xtensor-r.git;
               cd xtensor-r; mkdir build; cd build;
               cmake -D CMAKE_INSTALL_PREFIX=$HOME/miniconda ..;
               make install;
               cd ../..;
           else
-              conda install xtensor-r==0.11.0 -c conda-forge;
+              conda install xtensor-r==0.11.1 -c conda-forge;
           fi
       fi
     # Build
