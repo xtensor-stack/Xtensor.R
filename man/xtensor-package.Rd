@@ -30,5 +30,5 @@ Maintainer: Sylvain Corlay <sylvain.corlay@gmail.com>
 \keyword{tensor}
 \seealso{
   Development for \pkg{xtensor} can be followed via the GitHub repository
-  at \url{http://github.com/QuantStack/xtensor}.
+  at \url{http://github.com/xtensor-stack/xtensor}.
 }

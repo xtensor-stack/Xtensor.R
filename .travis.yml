@@ -135,7 +135,7 @@ install:
     - if [[ -n "$NOVENDOR" ]]; then
           if [[ -n "$USE_DEV_XTENSOR_R" ]]; then
               conda install xtensor==0.21.2 xsimd=7.4.5 cmake -c conda-forge;
-              git clone https://github.com/QuantStack/xtensor-r.git;
+              git clone https://github.com/xtensor-stack/xtensor-r.git;
               cd xtensor-r; mkdir build; cd build;
               cmake -D CMAKE_INSTALL_PREFIX=$HOME/miniconda ..;
               make install;
@@ -157,15 +157,15 @@ script:
     - if [[ -n "$NOVENDOR" ]]; then
           echo "Running R CMD check with --novendor argument";
           R CMD check --install-args="--configure-args='--novendor'" ./xtensor_*.tar.gz || (
-           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00install.out &&
-           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00check.log   &&
-           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/Rdlatex.log
+           cat /home/travis/build/xtensor-stack/Xtensor.R/xtensor.Rcheck/00install.out &&
+           cat /home/travis/build/xtensor-stack/Xtensor.R/xtensor.Rcheck/00check.log   &&
+           cat /home/travis/build/xtensor-stack/Xtensor.R/xtensor.Rcheck/Rdlatex.log
           );
       else
           echo "Running R CMD check with --as-cran argument.";
           R CMD check --as-cran ./xtensor_*.tar.gz || (
-           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00install.out &&
-           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/00check.log   &&
-           cat /home/travis/build/QuantStack/Xtensor.R/xtensor.Rcheck/Rdlatex.log
+           cat /home/travis/build/xtensor-stack/Xtensor.R/xtensor.Rcheck/00install.out &&
+           cat /home/travis/build/xtensor-stack/Xtensor.R/xtensor.Rcheck/00check.log   &&
+           cat /home/travis/build/xtensor-stack/Xtensor.R/xtensor.Rcheck/Rdlatex.log
           );
       fi
