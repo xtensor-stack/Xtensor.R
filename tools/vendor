@@ -8,7 +8,7 @@ if [ -d "./inst/include/xtl" ]
 then
     echo "xtl headers already vendored in source package"
 else
-    git clone https://github.com/QuantStack/xtl --branch ${XTL_VERSION}
+    git clone https://github.com/xtensor-stack/xtl --branch ${XTL_VERSION}
     cp -r xtl/include/xtl ./inst/include
     rm -rf xtl
 fi
@@ -18,7 +18,7 @@ if [ -d "./inst/include/xsimd" ]
 then
     echo "xsimd headers already vendored in source package"
 else
-    git clone https://github.com/QuantStack/xsimd --branch ${XSIMD_VERSION}
+    git clone https://github.com/xtensor-stack/xsimd --branch ${XSIMD_VERSION}
     cp -r xsimd/include/xsimd ./inst/include
     rm -rf xsimd
 fi
@@ -28,7 +28,7 @@ if [ -d "./inst/include/xtensor" ]
 then
     echo "xtensor headers already vendored in source package"
 else
-    git clone https://github.com/QuantStack/xtensor --branch ${XTENSOR_VERSION}
+    git clone https://github.com/xtensor-stack/xtensor --branch ${XTENSOR_VERSION}
     DIRECTORY=$(cd `dirname $0` && pwd)
     git -C xtensor apply $DIRECTORY/0001-Remove-pragmas.patch
     cp -r xtensor/include/xtensor ./inst/include
@@ -40,7 +40,7 @@ if [ -d "./inst/include/xtensor-r" ]
 then
     echo "xtensor-r headers already vendored in source package"
 else
-    git clone https://github.com/QuantStack/xtensor-r --branch ${XTENSOR_R_VERSION}
+    git clone https://github.com/xtensor-stack/xtensor-r --branch ${XTENSOR_R_VERSION}
     cp -r xtensor-r/include/xtensor-r ./inst/include
     rm -rf xtensor-r
 fi
