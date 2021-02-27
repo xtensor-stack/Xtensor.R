@@ -1,0 +1,10 @@
+name: xtensor-dev
+channels:
+  - conda-forge
+dependencies:
+  - r-base
+  - r-rcpp
+  # test dependencies
+  - r-rinside
+  - r-devtools
+  - r-testthat
