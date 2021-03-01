@@ -6,46 +6,8 @@
 [![Documentation](http://readthedocs.org/projects/xtensor-r/badge/?version=latest)](https://xtensor-r.readthedocs.io/en/latest/?badge=latest)
 [![Join the Gitter Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/QuantStack/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-R bindings for the [xtensor](https://github.com/xtensor-stack/xtensor) C++ multi-dimensional array library.
-
- - `xtensor` is a C++ library for multi-dimensional arrays enabling numpy-style broadcasting and lazy computing.
- - `xtensor-r` enables inplace use of R arrays in C++ with all the benefits from `xtensor`
-
-     - C++ universal functions and broadcasting
-     - STL - compliant APIs.
-     - A broad coverage of numpy APIs (see [the numpy to xtensor cheat sheet](http://xtensor.readthedocs.io/en/latest/numpy.html)).
-
-`xtensor-r` can be used either to author C++ extensions for R with [Rcpp](https://github.com/RcppCore/Rcpp), or applications that embed the R interpreter with [RInside](https://github.com/eddelbuettel/rinside).
-
-## Example
-
-```cpp
-#include <numeric>                    // Standard library import for std::accumulate
-#define STRICT_R_HEADERS              // Otherwise a PI macro is defined in R
-#include "xtensor/xmath.hpp"          // xtensor import for the C++ universal functions
-#include "xtensor-r/rarray.hpp"       // R bindings
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-// [[Rcpp::plugins(cpp14)]]
-
-// [[Rcpp::export]]
-double sum_of_sines(xt::rarray<double>& m)
-{
-    auto sines = xt::sin(m);  // sines does not actually hold values.
-    return std::accumulate(sines.cbegin(), sines.cend(), 0.0);
-}
-```
-
-```R
-v <- matrix(0:14, nrow=3, ncol=5)
-s <- sum_of_sines(v)
-s
-
-# prints 1.2853996391883833
-```
+`Xtensor.R` is an R package wrapping the [xtensor-r](https://github.com/xtensor-stack/xtensor-r) bindings
+to the [xtensor](https://github.com/xtensor-stack/xtensor) C++ multi-dimensional array library.
 
 ## Installation
 
@@ -70,7 +32,25 @@ install.packages("xtensor")
 `Xtensor.R` can be installed from GitHub directly using devtools
 
 ```R
-devtools::install_github("QuantStack/Xtensor.R", ref="package")
+devtools::install_github("xtensor-stack/Xtensor.R", ref="package")
+```
+
+## Packaging Xtensor.R
+
+*This section may be of interest to people working on packaging Xtensor.R for
+Linux distributions or other general-purpose packaging systems.*
+
+The `Xtensor` R package depends on the `xtensor-r` C++ header-only library.
+
+ - When installing the CRAN package the headers of `xtensor-r` and its dependencies
+   are vendored in the R package.
+ - However, the conda package does not vendor its dependencies.
+
+The vendoring can be prevented by passing the `--novendor` option to the configure script,
+which can be passed to the `R CMD INSTALL` command in the following way:
+
+```bash
+R CMD INSTALL --build --configure-args='--novendor'
 ```
 
 ## Documentation
@@ -91,11 +71,6 @@ http://xtensor-r.readthedocs.io/
 | 0.13.0       |  ^0.13.0    |  ^0.23.0  | ^1.0     |
 | 0.12.1       |  ^0.12.1    |  ^0.21.4  | ^1.0     |
 | 0.12.0       |  ^0.12.0    |  ^0.21.2  | ^1.0     |
-| 0.11.1       |  ^0.11.1    |  ^0.20.8  | ^1.0     |
-| 0.11.0       |  ^0.11.0    |  ^0.20.4  | ^1.0     |
-| 0.10.1       |  ^0.10.0    |  ^0.19.4  | ^1.0     |
-| 0.10.0       |  ^0.10.0    |  ^0.19.4  | ^1.0     |
-| 0.9.0        |  ^0.9.0     |  ^0.19.0  | ^1.0     |
  
 ## License
 
