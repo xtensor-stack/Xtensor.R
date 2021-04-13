@@ -44,7 +44,7 @@ The `Xtensor` R package depends on the `xtensor-r` C++ header-only library.
 
  - When installing the CRAN package the headers of `xtensor-r` and its dependencies
    are vendored in the R package.
- - However, the conda package does not vendor its dependencies.
+ - However, the conda-forge package does not vendor its dependencies.
 
 The vendoring can be prevented by passing the `--novendor` option to the configure script,
 which can be passed to the `R CMD INSTALL` command in the following way:
