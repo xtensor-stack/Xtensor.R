@@ -19,7 +19,7 @@ steps:
               make install;
               cd ../..;
           else
-              conda install -n xtensor-dev xtensor-r==0.13.0 -c conda-forge;
+              conda install -n xtensor-dev xtensor-r==0.14.0 -c conda-forge;
           fi
       fi
     displayName: Install NOVENDOR dependencies
