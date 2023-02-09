@@ -12,7 +12,7 @@ steps:
       if [[ $NOVENDOR == 1 ]]; then
           if [[ $USE_DEV_XTENSOR_R == 1 ]]; then
               source activate xtensor-dev
-              conda install xtensor==0.24.0 xsimd=8.0.3 cmake -c conda-forge;
+              conda install xtensor==0.24.4 xsimd=10.0.0 cmake -c conda-forge;
               git clone https://github.com/xtensor-stack/xtensor-r.git;
               cd xtensor-r; mkdir build; cd build;
               cmake -D CMAKE_INSTALL_PREFIX=$CONDA_PREFIX ..;
