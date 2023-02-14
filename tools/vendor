@@ -1,6 +1,6 @@
 XTL_VERSION=0.7.5
 XSIMD_VERSION=10.0.0
-XTENSOR_VERSION=0.24.4
+XTENSOR_VERSION=0.24.5
 XTENSOR_R_VERSION=0.14.2
 
 # xtl
@@ -11,6 +11,8 @@ else
     git clone https://github.com/xtensor-stack/xtl --branch ${XTL_VERSION}
     cp -r xtl/include/xtl ./inst/include
     rm -rf xtl
+    # Add newline in the end of xhalf_float_impl.hpp for R CRAN checks
+    echo "" >> ./inst/include/xtl/xhalf_float_impl.hpp
 fi
 
 # xsimd
