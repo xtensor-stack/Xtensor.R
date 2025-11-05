@@ -2,9 +2,9 @@
 #include "xtensor-r/rarray.hpp"
 #include "xtensor-r/rtensor.hpp"
 
-#include "xtensor/xio.hpp"
-#include "xtensor/xinfo.hpp"
-#include "xtensor/xarray.hpp"
+#include "xtensor/io/xio.hpp"
+#include "xtensor/io/xinfo.hpp"
+#include "xtensor/containers/xarray.hpp"
 
 #include <Rcpp.h>
 
