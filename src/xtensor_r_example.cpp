@@ -8,7 +8,7 @@
 
 #include <Rcpp.h>
 
-// [[Rcpp::plugins(cpp14)]]
+// [[Rcpp::plugins(cpp17)]]
 
 // [[Rcpp::export]]
 xt::rtensor<double, 2> xtensor_r_example(xt::rtensor<int, 1> tens)
