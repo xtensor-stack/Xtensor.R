@@ -1,4 +1,4 @@
 ## -*- mode: makefile; -*-
 
-PKG_CXXFLAGS = -I../inst/include --std=c++17
+PKG_CXXFLAGS = -I../inst/include --std=c++20 -D_LIBCPP_DISABLE_AVAILABILITY
 # CXX_STD = CXX14
