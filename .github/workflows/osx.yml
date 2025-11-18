@@ -1,0 +1,28 @@
+name: OSX
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [master]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.job }}-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash -e -l {0}
+jobs:
+  build:
+    runs-on: macos-${{ matrix.os }}
+    name: macos-${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - 14
+        - 15
+
+    steps:
+
+    - name: Build and run tests
+      uses: ./.github/workflows/unix_impl.yml
+

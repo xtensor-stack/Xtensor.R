@@ -1,0 +1,49 @@
+name: "Common steps for Linux and OSX"
+runs:
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set conda environment
+      uses: mamba-org/setup-micromamba@v2
+      with:
+        environment-file: environment-dev.yml
+        cache-environment: true
+
+    - name: Install NOVENDOR dependencies
+      if: env.NOVENDOR == '1'
+      run: |
+        if [[ $USE_DEV_XTENSOR_R == 1 ]]; then
+            micromamba install xtensor==0.24.4 xsimd=10.0.0 cmake -c conda-forge;
+            git clone https://github.com/xtensor-stack/xtensor-r.git;
+            cd xtensor-r; mkdir build; cd build;
+            cmake -D CMAKE_INSTALL_PREFIX=$CONDA_PREFIX ..;
+            make install;
+            cd ../..;
+        else
+            micromamba install xtensor-r==0.14.0 -c conda-forge;
+        fi
+
+    - name: Build Xtensor.R package
+      run: |
+        R CMD build ${{ github.workspace }};
+
+    - name: Check R package
+      run: |
+        if [[ $NOVENDOR == 1 ]]; then
+            echo "Running R CMD check with --novendor argument";
+            echo "R CMD check --install-args=\"--configure-args='--novendor'\" ./xtensor_*.tar.gz"
+            R CMD check --install-args="--configure-args='--novendor'" ./xtensor_*.tar.gz || (
+             cat xtensor.Rcheck/00install.out &&
+             cat xtensor.Rcheck/00check.log   &&
+             cat xtensor.Rcheck/Rdlatex.log
+            );
+        else
+            echo "Running R CMD check with --as-cran argument.";
+            echo "R CMD check --as-cran ./xtensor_*.tar.gz"
+            R CMD check --as-cran ./xtensor_*.tar.gz || (
+             cat xtensor.Rcheck/00install.out &&
+             cat xtensor.Rcheck/00check.log   &&
+             cat xtensor.Rcheck/Rdlatex.log
+            );
+        fi
