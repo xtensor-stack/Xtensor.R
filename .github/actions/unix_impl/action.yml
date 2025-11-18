@@ -1,9 +1,7 @@
 name: "Common steps for Linux and OSX"
 runs:
+  using: "composite"
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
     - name: Set conda environment
       uses: mamba-org/setup-micromamba@v2
       with:
@@ -23,10 +21,12 @@ runs:
         else
             micromamba install xtensor-r==0.14.0 -c conda-forge;
         fi
+      shell: bash -e -l {0}
 
     - name: Build Xtensor.R package
       run: |
         R CMD build ${{ github.workspace }};
+      shell: bash -e -l {0}
 
     - name: Check R package
       run: |
@@ -47,3 +47,4 @@ runs:
              cat xtensor.Rcheck/Rdlatex.log
             );
         fi
+      shell: bash -e -l {0}
