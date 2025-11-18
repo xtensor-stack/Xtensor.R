@@ -1,36 +1,25 @@
 build: false
 
-os: Visual Studio 2015
-
 platform:
   - x64
 
-environment:
-  matrix:
-    - MINICONDA: C:\xtensor-conda
-
 init:
-  - "ECHO %MINICONDA%"
-  - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
-  - ps: if($env:Platform -eq "x64"){Start-FileDownload 'http://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.exe' C:\Miniconda.exe; echo "Done"}
-  - ps: if($env:Platform -eq "x86"){Start-FileDownload 'http://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86.exe' C:\Miniconda.exe; echo "Done"}
-  - cmd: C:\Miniconda.exe /S /D=C:\xtensor-conda
-  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%MINICONDA%\\Library\\bin;%PATH%"
+  # Download micromamba
+  - ps: Invoke-Webrequest -URI https://micro.mamba.pm/api/micromamba/win-64/latest -OutFile C:\projects\micromamba.tar.bz2
+  - ps: C:\PROGRA~1\7-Zip\7z.exe x C:\projects\micromamba.tar.bz2 -aoa -oC:\projects\
+  - ps: C:\PROGRA~1\7-Zip\7z.exe x C:\projects\micromamba.tar -ttar -aoa -oC:\projects\
+
+  # Invoke micromamba hook
+  - ps: $Env:MAMBA_ROOT_PREFIX="C:\projects\micromamba"
+  - ps: mkdir $Env:MAMBA_ROOT_PREFIX
+  - ps: C:\projects\Library\bin\micromamba.exe shell hook -s powershell | Out-String | Invoke-Expression
+  - ps: micromamba activate
 
 install:
-  # CXX14 unnecessary with MSVC
-  # Also cannot be set because R uses its compile-time settings.
-  - ps: sed -i 's|CXX_STD = CXX14||' src/Makevars.win
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  # Install R and dependencies
-  - conda install r r-rcpp r-base r-devtools r-testthat -c conda-forge
-  - conda install m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix
+  # Install build dependencies
+  - ps: micromamba install install r r-rcpp r-base r-devtools r-testthat -c conda-forge
+  - ps: micromamba install m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix -c conda-forge
   # Full build on x64 with msys64
-  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
-  - set R_HOME=%MINICONDA%\\Lib\\R
-  - set MINGW_PATH=%MINICONDA%\\Library\\mingw-w64\\bin
-  - "set PATH=%PATH%;%MINGW_PATH%;%MINICONDA%\\Lib\\R\\library\\RInside\\libs\\x64;%MINICONDA%\\Lib\\R\\bin\\x64"
   - appveyor DownloadFile https://cran.r-project.org/bin/windows/Rtools/Rtools34.exe
   - Rtools34.exe /VERYSILENT -NoNewWindow -Wait
   # Build
@@ -38,6 +27,7 @@ install:
 
 build_script:
   - R CMD check --as-cran --no-manual .\xtensor_*.tar.gz
+  - ps: Get-Content -Path C:/projects/rhumba/rhumba.Rcheck/00install.out
+  - ps: Get-Content -Path C:/projects/rhumba/rhumba.Rcheck/00check.log
+  # - ps: Get-Content -Path C:/projects/rhumba/rhumba.Rcheck/Rdlatex.log
   - R CMD INSTALL xtensor_*.tar.gz
-  #- cd ..\test\
-  #- Rscript unittest.R
