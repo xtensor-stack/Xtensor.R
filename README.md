@@ -1,7 +1,7 @@
 # ![Xtensor.R](./man/figures/xtensor-r.svg)
 
-[![Travis](https://travis-ci.org/xtensor-stack/Xtensor.R.svg?branch=master)](https://travis-ci.org/xtensor-stack/Xtensor.R)
-[![Appveyor](https://ci.appveyor.com/api/projects/status/xk0hlhsk90vex36n?svg=true)](https://ci.appveyor.com/project/xtensor-stack/xtensor-r-7j42j)
+[![GHA Linux](https://github.com/xtensor-stack/Xtensor.R/actions/workflows/linux.yml/badge.svg)](https://github.com/xtensor-stack/Xtensor.R/actions/workflows/linux.yml)
+[![GHA OSX](https://github.com/xtensor-stack/Xtensor.R/actions/workflows/osx.yml/badge.svg)](https://github.com/xtensor-stack/Xtensor.R/actions/workflows/osx.yml)
 [![CRAN status](https://www.r-pkg.org/badges/version/xtensor)](https://CRAN.R-project.org/package=xtensor)
 [![Documentation](http://readthedocs.org/projects/xtensor-r/badge/?version=latest)](https://xtensor-r.readthedocs.io/en/latest/?badge=latest)
 [![Join the Gitter Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/QuantStack/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
