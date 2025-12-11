@@ -19,7 +19,7 @@ runs:
             make install;
             cd ../..;
         else
-            micromamba install xtensor-r==0.16.0 -c conda-forge;
+            micromamba install xtensor-r==0.17.0 -c conda-forge;
         fi
       shell: bash -e -l {0}
 
