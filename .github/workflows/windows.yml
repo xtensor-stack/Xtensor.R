@@ -1,0 +1,39 @@
+name: Windows
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [master]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.job }}-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash -e -l {0}
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set conda environment
+      uses: mamba-org/setup-micromamba@v2
+      with:
+        environment-file: environment-dev.yml
+        cache-environment: true
+        create-args: m2w64-gcc m2w64-make m2w64-toolchain m2-libbz2 posix
+
+    - name: Build Xtensor.R package
+      run: |
+        R CMD build --no-manual .
+
+    - name: Check Xtensor.R package
+      run: |
+        R CMD check --as-cran --no-manual .\xtensor_*.tar.gz
+
+    - name: Install Xtensor.R package
+      run: |
+        R CMD INSTALL .\xtensor_*.tar.gz
+
