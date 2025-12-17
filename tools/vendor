@@ -1,5 +1,5 @@
 XTL_VERSION=0.8.1
-XSIMD_VERSION=13.2.1
+XSIMD_VERSION=13.2.0
 XTENSOR_VERSION=0.27.0
 XTENSOR_R_VERSION=0.17.0
 
@@ -32,7 +32,6 @@ then
 else
     git clone https://github.com/xtensor-stack/xtensor --branch ${XTENSOR_VERSION}
     DIRECTORY=$(cd `dirname $0` && pwd)
-    git -C xtensor apply $DIRECTORY/0001-Remove-pragmas.patch
     cp -r xtensor/include/xtensor ./inst/include
     rm -rf xtensor
 fi

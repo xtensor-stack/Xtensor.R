@@ -13,7 +13,7 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    name: ${{ matrix.sys.compiler }} ${{ matrix.sys.version }}
+    name: ${{ matrix.sys.compiler }} ${{ matrix.sys.version }} ${{ matrix.sys.novendor == 1 && ' no-vendor' || ' vendoring' }}
     strategy:
       fail-fast: false
       matrix:
